@@ -31,7 +31,7 @@ bool Server::Start()
 	memset(&addr,0,sizeof(struct sockaddr_in));
 	int socklen = sizeof(struct sockaddr_in);
 	addr.sin_family = AF_INET;
-	addr.sin_port = htons(LISTEN_PORT);
+	addr.sin_port = htons(TPS_SERVER_PORT);
 	addr.sin_addr.s_addr = inet_addr(LISTEN_ADDR);
 	
 	s_lev = evconnlistener_new_bind(s_base,listen_accept_cb,s_base,LEV_OPT_CLOSE_ON_FREE|LEV_OPT_REUSEABLE,LISTEN_LIST,\

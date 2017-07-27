@@ -14,10 +14,7 @@ void listen_accept_cb(struct evconnlistener *lev, evutil_socket_t fd, struct soc
 		return;
 	bufferevent_setcb(bufev,bufev_read_cb,NULL,bufev_error_cb,p_node);
 	
-	struct timeval tv;
-	tv.tv_sec = 120;
-	tv.tv_usec = 0;
-	bufferevent_set_timeouts(bufev,&tv,NULL);
+	update_buffer_timerout(bufev,HEART_BEAT_TIMEOUT);
 	
 	p_node->p_bufev = bufev;
 	int ret = bufferevent_enable(bufev,EV_READ | EV_WRITE);
@@ -51,31 +48,30 @@ void bufev_read_cb(struct bufferevent *bev, void *ctx)
 	if(NULL == read_msg)
 			return;
 	read_msg[buf_len] = 0;
-	LOG(INFO)<<"!!!!!!!!!!!!!!!!!!!!recv msg len = "<<buf_len<<"   buf:\n"<<read_msg;
-
+	
+	int Ret_Code = HTTP_RES_BADREQ;
 	if(strstr(read_msg,"POST /TransProxy"))
 	{
-		LOG(DEBUG)<<"this is TransProxy";
-		pNode->handle_register(bev,pNode,read_msg);
-		evbuffer_drain(buf_in,buf_len);
+		Ret_Code = pNode->handle_register(bev,pNode,read_msg);
+		if(Ret_Code == HTTP_RES_500)
+			return;
+		if(Ret_Code == HTTP_RES_200)
+			evbuffer_drain(buf_in,buf_len);
 	}
 	else if(strstr(read_msg,"POST /PrivateData"))
 	{
-		LOG(DEBUG)<<"this is PrivateData";
-		int Ret_Code = pNode->handle_transmsg(bev,read_msg,buf_len);
-		if(Ret_Code != HTTP_RES_200)
-		{
-			evbuffer_drain(buf_in,buf_len);
-			error_rps_data(bev,Ret_Code);
-		}
+		Ret_Code = pNode->handle_transmsg(bev,pNode,read_msg);
 	}
 	else
 	{
-		LOG(DEBUG)<<"this is invalide";
-		evbuffer_drain(buf_in,buf_len);
+		update_buffer_timerout(bev,5);
 	}
 	
-	return ;
+	if(Ret_Code != HTTP_RES_200)
+	{
+		evbuffer_drain(buf_in,buf_len);
+		error_rps_data(bev,Ret_Code);
+	}
 }
 
 void bufev_error_cb(struct bufferevent *bev, short what, void *ctx)
@@ -101,6 +97,12 @@ void bufev_error_cb(struct bufferevent *bev, short what, void *ctx)
 	{
 		Peer *pNode = (Peer *)ctx;
 		erase_one_peer(pNode->uuid);
+		Server *redis_ev = Server::GetInstance();
+		if((redis_ev->redis_conn_flag == 1) && (pNode->rfulsh_time != -1))
+		{
+			redisAsyncCommand(redis_ev->redis_pconn,redis_op_status,NULL,"DEL %s",pNode->uuid.c_str());	
+		}
+		LOG(ERROR)<<"connect error uuid: "<<pNode->uuid;
 		delete(pNode);
 	}
 	

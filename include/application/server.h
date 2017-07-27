@@ -22,7 +22,6 @@
 
 #define LISTEN_LIST 8192
 #define LISTEN_ADDR "0.0.0.0"
-#define LISTEN_PORT 6615
 
 class Peer;
 

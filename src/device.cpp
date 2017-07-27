@@ -1,13 +1,13 @@
 #include "../include/application/device.h"
 
-void Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
+int Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 {
 	if(NULL == pNode || NULL == msg)
-		return ;
+		return HTTP_RES_BADREQ;
 	
 	char *body = parse_regist_request(msg);
 	if(NULL == body)
-		return ;
+		return HTTP_RES_BADREQ;
 
 	LOG(ERROR)<<"body = "<<body;
 	Json::Reader	reader;
@@ -15,8 +15,7 @@ void Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 	if(reader.parse(body, requestValue) == false)
 	{
 			LOG(ERROR) <<"invalid register request";
-			error_rps_data(bufev,HTTP_RES_BADREQ);
-			return ;
+			return HTTP_RES_BADREQ;
 	}
 
 	if((requestValue.isObject())&&(requestValue.isMember("TransProxy")) \
@@ -32,17 +31,17 @@ void Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 		if(msgtype != "MSG_TRANSPROXY_REGISTER_REQ")
 		{
 			LOG(ERROR)<<"correct: MSG_TRANSPROXY_REGISTER_REQ"<<"  error:"<<msgtype;
-			return;
+			return HTTP_RES_BADREQ;
 		}
 		
 		Peer *pPeer = get_one_peer(uuid);
 		if(NULL == pPeer && (pNode->uuid.length() != 0))
 		{
-			LOG(ERROR)<<"uuid :"<<uuid<<" Unknown ERROR";
+			LOG(ERROR)<<"uuid :"<<uuid<<"Unknown ERROR";
 			if(pNode->p_bufev != NULL)
 				bufferevent_free(pNode->p_bufev);
 			delete pNode;
-			return;
+			return HTTP_RES_500;
 		}
 		else if(NULL == pPeer || pPeer != pNode)
 		{
@@ -66,15 +65,13 @@ void Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 		
 		std::string rps;
 		int rps_len = make_regist_response(rps);
-		LOG(DEBUG)<<"rps len = "<<rps_len<<" response body = \n"<<rps;
 		bufferevent_write(bufev,rps.c_str(),rps_len);
-		return;
+		return HTTP_RES_200;
 	}
-	error_rps_data(bufev,HTTP_RES_BADREQ);
-	return;
+	return HTTP_RES_BADREQ;
 }
 
-int Peer::handle_transmsg(struct bufferevent *bufev,char *msg,int len)
+int Peer::handle_transmsg(struct bufferevent *bufev,Peer *pNode,char *msg)
 {
 	if(NULL == bufev || NULL == msg)
 		return HTTP_RES_BADREQ;
@@ -83,12 +80,25 @@ int Peer::handle_transmsg(struct bufferevent *bufev,char *msg,int len)
 	int ret = parse_trans_request(msg,source_uuid,dest_uuid);
 	if(ret != 0)
 		return HTTP_RES_BADREQ;
-
-	Peer *pNode = get_one_peer(dest_uuid);
-	if(NULL == pNode || NULL == pNode->p_bufev)
-		return HTTP_RES_NOTFOUND;
 	
-	struct evbuffer *pOutPut = bufferevent_get_output(pNode->p_bufev);
+	Peer *des_pNode = get_one_peer(dest_uuid);
+	if(NULL == des_pNode || NULL == des_pNode->p_bufev)
+		return HTTP_RES_NOTFOUND;
+
+	Peer *src_pNode = get_one_peer(source_uuid);
+	if((src_pNode == NULL) || (src_pNode != NULL && src_pNode->p_bufev != bufev))
+	{
+		pNode->uuid = source_uuid;
+		pNode->rfulsh_time = -1;
+		insert_one_peer(source_uuid,pNode);
+	}
+	else if(des_pNode->p_bufev == src_pNode->p_bufev)
+	{
+		return HTTP_RES_BADREQ;
+	}
+	
+	struct evbuffer *pOutPut = bufferevent_get_output(des_pNode->p_bufev);
 	bufferevent_write_buffer(bufev,pOutPut);
+	error_rps_data(bufev,HTTP_RES_200);
 	return HTTP_RES_200;
 }

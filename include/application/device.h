@@ -7,8 +7,8 @@
 class Peer{
 public:
 	Peer():p_bufev(NULL),rfulsh_time(-1){}
-	void handle_register(struct bufferevent *bufev,Peer *pNode,char *msg);
-	int handle_transmsg(struct bufferevent *,char *,int);
+	int handle_transmsg(struct bufferevent *,Peer *,char *);
+	int handle_register(struct bufferevent *,Peer *,char *);
 	struct bufferevent *p_bufev;
 	std::string uuid;
 	int rfulsh_time;

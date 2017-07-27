@@ -177,4 +177,21 @@ bool update_timer_event(struct event *ev,int time)
 	return true;
 }
 
+bool update_buffer_timerout(struct bufferevent *bev,int tm)
+{
+	struct timeval tv;
+	tv.tv_sec = tm;
+	tv.tv_usec = 0;
+	bufferevent_set_timeouts(bev,&tv,NULL);	
+	return true;
+}
 
+int get_tpsserver_status()
+{
+	Server *pServer = Server::GetInstance();
+	int size = 0;
+	pthread_mutex_lock(&pServer->s_lock_node_map);
+	size = pServer->peer_node_map.size();
+	pthread_mutex_unlock(&pServer->s_lock_node_map);
+	return size;
+}
