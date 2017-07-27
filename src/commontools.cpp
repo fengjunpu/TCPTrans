@@ -129,7 +129,7 @@ int insert_one_peer(std::string &uuid,Peer *pNode)
 		}
 	}
 	
-	pServer->peer_node_map.insert(Peer_Map::value_type(uuid, pNode));
+	pServer->peer_node_map.insert(Peer_Map::value_type(uuid,pNode));
 	pthread_mutex_unlock(&pServer->s_lock_node_map);
 	return 0;
 }

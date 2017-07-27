@@ -8,8 +8,7 @@ int Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 	char *body = parse_regist_request(msg);
 	if(NULL == body)
 		return HTTP_RES_BADREQ;
-
-	LOG(ERROR)<<"body = "<<body;
+	
 	Json::Reader	reader;
 	Json::Value 	requestValue;
 	if(reader.parse(body, requestValue) == false)
@@ -23,7 +22,7 @@ int Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 		&&(requestValue["TransProxy"].isMember("Body")) \
 		&&(requestValue["TransProxy"]["Header"].isMember("MessageType")) \
         &&(requestValue["TransProxy"]["Body"].isMember("SerialNumber")) \
-        &&(requestValue["TransProxy"]["Body"].isMember("TerminalType")))
+        &&(requestValue["TransProxy"]["Header"].isMember("TerminalType")))
     {
 		std::string uuid = requestValue["TransProxy"]["Body"]["SerialNumber"].asString();
 		std::string msgtype = requestValue["TransProxy"]["Header"]["MessageType"].asString();
@@ -33,11 +32,10 @@ int Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 			LOG(ERROR)<<"correct: MSG_TRANSPROXY_REGISTER_REQ"<<"  error:"<<msgtype;
 			return HTTP_RES_BADREQ;
 		}
-		
 		Peer *pPeer = get_one_peer(uuid);
 		if(NULL == pPeer && (pNode->uuid.length() != 0))
-		{
-			LOG(ERROR)<<"uuid :"<<uuid<<"Unknown ERROR";
+		{ 
+			LOG(ERROR)<<"uuid :"<<uuid<<" Unknown ERROR";
 			if(pNode->p_bufev != NULL)
 				bufferevent_free(pNode->p_bufev);
 			delete pNode;
@@ -47,10 +45,10 @@ int Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 		{
 			pNode->uuid = uuid;
 			pNode->rfulsh_time = 0;
+			pPeer = pNode;
 			insert_one_peer(uuid,pNode);
 		}
-		std::string terminalType = requestValue["TransProxy"]["Body"]["TerminalType"].asString();
-
+		std::string terminalType = requestValue["TransProxy"]["Header"]["TerminalType"].asString();
 		/*更新数据库*/
 		struct timeval nowtv;
 		evutil_gettimeofday(&nowtv, NULL);
@@ -62,7 +60,6 @@ int Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 	        redisAsyncCommand(conn_redis->redis_pconn,redis_op_status,NULL,"EXPIRE %s %d",uuid.c_str(),REDIS_EXPIRE_TIME);
 			pPeer->rfulsh_time = nowtv.tv_sec;
 		}
-		
 		std::string rps;
 		int rps_len = make_regist_response(rps);
 		bufferevent_write(bufev,rps.c_str(),rps_len);
@@ -97,8 +94,9 @@ int Peer::handle_transmsg(struct bufferevent *bufev,Peer *pNode,char *msg)
 		return HTTP_RES_BADREQ;
 	}
 	
-	struct evbuffer *pOutPut = bufferevent_get_output(des_pNode->p_bufev);
-	bufferevent_write_buffer(bufev,pOutPut);
 	error_rps_data(bufev,HTTP_RES_200);
+	
+	bufferevent_write_buffer(des_pNode->p_bufev,bufev->input);
+	
 	return HTTP_RES_200;
 }
