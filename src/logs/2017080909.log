@@ -1,0 +1,101 @@
+[INFO  | 2017-08-09 09:26:39,151] | accept new connect addr:10.2.5.51
+[ERROR | 2017-08-09 09:26:44,156] | connection timeout
+[ERROR | 2017-08-09 09:26:44,156] | connect error uuid: 
+[FATAL | 2017-08-09 09:26:46,342] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 09:26:46,342] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[INFO  | 2017-08-09 09:29:34,577] | accept new connect addr:10.2.5.51
+[ERROR | 2017-08-09 09:29:37,959] | connection closed
+[ERROR | 2017-08-09 09:29:37,959] | connect error uuid: 
+[INFO  | 2017-08-09 09:31:03,865] | accept new connect addr:10.2.5.51
+[ERROR | 2017-08-09 09:31:07,358] | connection closed
+[ERROR | 2017-08-09 09:31:07,358] | connect error uuid: 
+[INFO  | 2017-08-09 09:32:43,401] | accept new connect addr:10.2.5.51
+[ERROR | 2017-08-09 09:32:44,102] | connection closed
+[ERROR | 2017-08-09 09:32:44,102] | connect error uuid: 
+[INFO  | 2017-08-09 09:35:35,442] | accept new connect addr:10.10.17.69
+[ERROR | 2017-08-09 09:35:42,948] | connection closed
+[ERROR | 2017-08-09 09:35:42,948] | connect error uuid: 
+[INFO  | 2017-08-09 09:35:43,499] | accept new connect addr:10.10.17.69
+[ERROR | 2017-08-09 09:35:46,455] | connection closed
+[ERROR | 2017-08-09 09:35:46,455] | connect error uuid: 
+[INFO  | 2017-08-09 09:35:48,185] | accept new connect addr:10.10.17.69
+[ERROR | 2017-08-09 09:35:50,539] | connection closed
+[ERROR | 2017-08-09 09:35:50,539] | connect error uuid: 
+[FATAL | 2017-08-09 09:36:29,773] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 09:36:29,773] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[INFO  | 2017-08-09 09:36:42,329] | accept new connect addr:10.2.5.51
+[ERROR | 2017-08-09 09:36:45,453] | connection closed
+[ERROR | 2017-08-09 09:36:45,453] | connect error uuid: 
+[FATAL | 2017-08-09 09:36:47,173] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 09:36:47,173] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[INFO  | 2017-08-09 09:37:23,416] | accept new connect addr:10.2.5.51
+[ERROR | 2017-08-09 09:37:24,765] | connection closed
+[ERROR | 2017-08-09 09:37:24,765] | connect error uuid: 
+[FATAL | 2017-08-09 09:41:31,749] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 09:41:31,749] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[FATAL | 2017-08-09 09:42:57,613] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 09:42:57,613] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[ERROR | 2017-08-09 09:43:32,792] | 1111111111111111111111111
+[ERROR | 2017-08-09 09:43:36,005] | connection closed
+[ERROR | 2017-08-09 09:43:36,005] | connect error uuid: 
+[ERROR | 2017-08-09 09:44:00,921] | 1111111111111111111111111
+[FATAL | 2017-08-09 09:44:03,758] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 09:44:03,758] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[FATAL | 2017-08-09 09:44:08,525] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 09:44:08,525] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[ERROR | 2017-08-09 09:44:15,784] | 2222222222222
+
+[FATAL | 2017-08-09 09:44:17,541] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 09:44:17,541] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[ERROR | 2017-08-09 09:45:00,509] | connection closed
+[ERROR | 2017-08-09 09:45:00,509] | connect error uuid: 
+[ERROR | 2017-08-09 09:45:09,296] | 2222333333333333
+
+[ERROR | 2017-08-09 09:45:09,297] | connection closed
+[ERROR | 2017-08-09 09:45:09,297] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:45:12,729] | 2222333333333333
+
+[ERROR | 2017-08-09 09:45:12,729] | connection closed
+[ERROR | 2017-08-09 09:45:12,729] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:45:13,936] | 2222333333333333
+
+[ERROR | 2017-08-09 09:45:13,936] | connection closed
+[ERROR | 2017-08-09 09:45:13,936] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:45:20,120] | 2222333333333333
+
+[ERROR | 2017-08-09 09:45:20,120] | connection closed
+[ERROR | 2017-08-09 09:45:20,121] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:46:01,816] | 2222333333333333
+
+[ERROR | 2017-08-09 09:46:01,817] | connection closed
+[ERROR | 2017-08-09 09:46:01,817] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:46:10,832] | 2222333333333333
+
+[ERROR | 2017-08-09 09:46:10,833] | connection closed
+[ERROR | 2017-08-09 09:46:10,833] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:46:55,176] | 2222333333333333
+
+[ERROR | 2017-08-09 09:46:55,177] | connection closed
+[ERROR | 2017-08-09 09:46:55,177] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:46:56,592] | 2222333333333333
+
+[ERROR | 2017-08-09 09:46:56,592] | connection closed
+[ERROR | 2017-08-09 09:46:56,592] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:51:17,959] | 2222333333333333
+
+[ERROR | 2017-08-09 09:51:17,960] | connection closed
+[ERROR | 2017-08-09 09:51:17,960] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:51:31,279] | 2222333333333333
+
+[ERROR | 2017-08-09 09:51:31,280] | connection closed
+[ERROR | 2017-08-09 09:51:31,280] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:51:33,295] | 2222333333333333
+
+[ERROR | 2017-08-09 09:51:33,296] | connection closed
+[ERROR | 2017-08-09 09:51:33,296] | connect error uuid: 0000000000000000
+[ERROR | 2017-08-09 09:51:56,295] | 2222333333333333
+
+[ERROR | 2017-08-09 09:51:56,296] | connection closed
+[ERROR | 2017-08-09 09:51:56,296] | connect error uuid: 0000000000000000
+[FATAL | 2017-08-09 10:35:58,417] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-08-09 10:35:58,417] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]

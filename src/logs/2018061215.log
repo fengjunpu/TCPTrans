@@ -1,0 +1,20 @@
+[DEBUG | 2018-06-12 15:46:00,826] | vendor_name = General rediscenter = 198.97.190.53 serverarea_name = Asia:China:Beijing
+[INFO  | 2018-06-12 15:46:00,826] | wait for redis_update
+[INFO  | 2018-06-12 15:46:01,826] | wait for redis_update
+[INFO  | 2018-06-12 15:46:02,826] | wait for redis_update
+[INFO  | 2018-06-12 15:46:03,826] | wait for redis_update
+[INFO  | 2018-06-12 15:46:04,826] | wait for redis_update
+[INFO  | 2018-06-12 15:46:05,827] | wait for redis_update
+[INFO  | 2018-06-12 15:46:06,827] | wait for redis_update
+[INFO  | 2018-06-12 15:46:07,827] | wait for redis_update
+[INFO  | 2018-06-12 15:46:08,827] | wait for redis_update
+[INFO  | 2018-06-12 15:46:09,827] | wait for redis_update
+[FATAL | 2018-06-12 15:46:09,961] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2018-06-12 15:46:09,984] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
+[DEBUG | 2018-06-12 15:48:11,099] | vendor_name = General rediscenter = 120.132.71.215 serverarea_name = Asia:China:Beijing
+[INFO  | 2018-06-12 15:48:11,112] | wait for redis_update
+[INFO  | 2018-06-12 15:48:12,114] | wait for redis_update
+[INFO  | 2018-06-12 15:48:13,114] | wait for redis_update
+[DEBUG | 2018-06-12 15:49:16,527] | srcid = 1111111111111111  destid = c142dd39f8222e1d
+[FATAL | 2018-06-12 15:49:23,272] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2018-06-12 15:49:23,272] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]

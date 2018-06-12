@@ -42,27 +42,40 @@ int parse_trans_request(const char *msg,std::string &srcid,std::string &destid)
 {
 	if(NULL == msg)
 		return -1;
-	std::string dest_flag = "DestUuid: ";
-	std::string src_flag = "SrcUuid: ";
+	std::string dest_flag = "DestUuid:";
+	std::string src_flag = "SrcUuid:";
 	
 	const char *DestUuid = strstr(msg,dest_flag.c_str());
-	if(NULL == DestUuid)
+	if(NULL == DestUuid) {
 		return -1;
+	}
+	
 	DestUuid += dest_flag.length();
+	while(DestUuid && *DestUuid == ' ') {
+		DestUuid += 1;
+	}
 	const char *DestUuidEnd = strstr(DestUuid,"\r\n");
-	if(NULL == DestUuidEnd)
+	if(NULL == DestUuidEnd) {
 		return -1;
+	}
 	int dest_len = DestUuidEnd - DestUuid;
 	std::string t_destid(DestUuid,dest_len);
 	destid = t_destid;
 	
 	const char *SrcUuid = strstr(msg,src_flag.c_str());
-	if(NULL == SrcUuid)
+	if(NULL == SrcUuid) {
 		return -1;
+	}
+	
 	SrcUuid += src_flag.length();
+	while(SrcUuid && *SrcUuid == ' ') {
+		SrcUuid += 1;
+	}
+	
 	const char *SrcUuidEnd = strstr(SrcUuid,"\r\n");
-	if(NULL == SrcUuidEnd)
+	if(NULL == SrcUuidEnd) {
 		return -1;
+	}
 	int src_len = SrcUuidEnd - SrcUuid;
 	std::string t_srcid(SrcUuid,src_len);
 	srcid = t_srcid;
@@ -79,7 +92,7 @@ int make_regist_response(std::string &rsp)
 	sprintf(sectim,"%ld",now);
 	
 	char keepalive_time[32] = {0,};
-	sprintf(keepalive_time,"%d",90);
+	sprintf(keepalive_time,"%d",HEATER_BEAT_INTERNAL);
 	
 	Json::Value responseValue = Json::Value::null;
 	responseValue["TransProxy"]["Body"]["KeepAliveIntervel"] = keepalive_time;

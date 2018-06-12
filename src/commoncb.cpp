@@ -5,7 +5,7 @@ void listen_accept_cb(struct evconnlistener *lev, evutil_socket_t fd, struct soc
 	if(fd <= 0 || NULL == arg)
 		return;
 
-	LOG(INFO)<<"accept new connect addr:"<<inet_ntoa(((struct sockaddr_in *)addr)->sin_addr);
+//	LOG(INFO)<<"accept new connect addr:"<<inet_ntoa(((struct sockaddr_in *)addr)->sin_addr);
 	struct event_base *base = (struct event_base *)arg;
 	Peer *p_node = new Peer;
 	assert(p_node);
@@ -43,7 +43,6 @@ void bufev_read_cb(struct bufferevent *bev, void *ctx)
 	size_t buf_len = evbuffer_get_length(buf_in);
 	if(0 == buf_len)
 		return;
-	
 	char *read_msg = (char *)evbuffer_pullup(buf_in,-1);
 	if(NULL == read_msg)
 			return;

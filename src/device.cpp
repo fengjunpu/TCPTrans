@@ -70,13 +70,17 @@ int Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 
 int Peer::handle_transmsg(struct bufferevent *bufev,Peer *pNode,char *msg)
 {
-	if(NULL == bufev || NULL == msg)
+	if(NULL == bufev || NULL == msg) {
+		LOG(ERROR)<<"buffev is null or msg is null";
 		return HTTP_RES_BADREQ;
+	}
 	std::string source_uuid;
 	std::string dest_uuid;
 	int ret = parse_trans_request(msg,source_uuid,dest_uuid);
-	if(ret != 0)
+	if(ret != 0) {
+		LOG(ERROR)<<"parse_trans_request failed ret = "<<ret;
 		return HTTP_RES_BADREQ;
+	}
 	
 	Peer *des_pNode = get_one_peer(dest_uuid);
 	if(NULL == des_pNode || NULL == des_pNode->p_bufev)

@@ -70,7 +70,7 @@ int main(int argc,char ** argv)
 	el::Configurations conf("./logger.conf");
     el::Loggers::reconfigureAllLoggers(conf);
 	parse_args(argc,argv);
-#if 0
+#if 1
 	int Ret = start_subsvr_manage();
 	assert(Ret == 0);
 #endif

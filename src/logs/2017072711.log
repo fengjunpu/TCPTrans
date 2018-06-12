@@ -1,0 +1,4 @@
+[DEBUG | 2017-07-27 11:01:14,651] | vendor_name = General rediscenter = 120.132.71.215 serverarea_name = Asia:China:Beijing
+[INFO  | 2017-07-27 11:01:14,651] | wait for redis_update
+[FATAL | 2017-07-27 13:29:43,721] | CRASH HANDLED; Application has crashed due to [SIGINT] signal
+[WARN  | 2017-07-27 13:29:43,721] | Aborting application. Reason: Fatal log at [../include/application/easylogging++.h:5583]
