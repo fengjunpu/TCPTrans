@@ -7,11 +7,11 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
-#include "../include/application/subsvr_manage.h"
-#include "../include/application/commondata.h"
-#include "../include/application/commontools.h"
-#include "../include/application/redis_wrap.h"
-#include "../include/application/redis_define.h"
+#include "application/subsvr_manage.h"
+#include "application/commondata.h"
+#include "application/commontools.h"
+#include "application/redis_wrap.h"
+#include "application/redis_define.h"
 
 static uint32_t COMMON_MINUTESECONDES = 360;
 

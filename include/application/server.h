@@ -10,15 +10,16 @@
 #include <map>
 #include <pthread.h>
 
-#include "../event2/event.h"
-#include "../event2/listener.h"
+#include "event2/event.h"
+#include "event2/listener.h"
+#include "hiredis/adapters/libevent.h"
+#include "event2/event_struct.h"
+
 #include "./commoncb.h"
 #include "./device.h"
 #include "../hredis/hiredis.h"
 #include "../hredis/async.h"
-#include "../event2/event_struct.h"
-#include "./commondata.h"
-#include "../hredis/adapters/libevent.h"
+#include "./commondata.h"
 
 #define LISTEN_LIST 8192
 #define LISTEN_ADDR "0.0.0.0"

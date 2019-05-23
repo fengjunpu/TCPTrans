@@ -1,4 +1,4 @@
-#include "../include/application/commondata.h"
+#include "application/commondata.h"
 
 char TPS_SERVER_IP[48] = {0,};	
 int TPS_SERVER_PORT = 6604;		

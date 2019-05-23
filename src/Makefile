@@ -1,6 +1,6 @@
-LIBS += ../lib/libevent.a
 LIBS += ../lib/json_lib/libjson.a
-LIBS += ../lib/redis_lib/libhiredis.a
+LIBS += ~/Github/dss_access_v2/hiredis/lib/libhiredis.a
+LIBS += ~/Github/dss_access_v2/libevent/lib/libevent_core.a
 
 tps_server:main.o server.o commoncb.o device.o commontools.o commondata.o subsvr_manage.o redis_wrap.o
 	g++ -std=c++11 -o tps_server main.o server.o commoncb.o device.o commondata.o commontools.o subsvr_manage.o redis_wrap.o $(LIBS) -lrt -lpthread 

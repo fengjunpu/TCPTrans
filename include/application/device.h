@@ -1,8 +1,11 @@
 #ifndef _DEVICE_H_
 #define _DEVICE_H_
+#include <map>
+
+#include "event2/bufferevent.h"
+#include "event2/bufferevent_struct.h"
 #include "./commontools.h"
 #include "../easylogging++.h"
-#include <map>
 
 class Peer{
 public:

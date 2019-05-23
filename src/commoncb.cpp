@@ -1,4 +1,4 @@
-#include "../include/application/commoncb.h"
+#include "application/commoncb.h"
 
 void listen_accept_cb(struct evconnlistener *lev, evutil_socket_t fd, struct sockaddr *addr, int socklen, void *arg)
 {
@@ -43,10 +43,13 @@ void bufev_read_cb(struct bufferevent *bev, void *ctx)
 	size_t buf_len = evbuffer_get_length(buf_in);
 	if(0 == buf_len)
 		return;
-	char *read_msg = (char *)evbuffer_pullup(buf_in,-1);
-	if(NULL == read_msg)
+	char *msg_buffer = (char *)evbuffer_pullup(buf_in,-1);
+	if(NULL == msg_buffer)
 			return;
-	read_msg[buf_len] = 0;
+
+	//LOG(ERROR)<<"recv len:"<<buf_len<<" buffer:"<<msg_buffer;
+	char read_msg[1024*100] = {0,};
+	memcpy(read_msg, msg_buffer, buf_len);
 	
 	int Ret_Code = HTTP_RES_BADREQ;
 	if(strstr(read_msg,"POST /TransProxy"))
@@ -60,6 +63,9 @@ void bufev_read_cb(struct bufferevent *bev, void *ctx)
 	else if(strstr(read_msg,"POST /PrivateData"))
 	{
 		Ret_Code = pNode->handle_transmsg(bev,pNode,read_msg);
+		
+		if(Ret_Code == HTTP_RES_200) 
+			evbuffer_drain(buf_in, buf_len);
 	}
 	else
 	{

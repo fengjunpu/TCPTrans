@@ -5,11 +5,12 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <cassert>
-#include "../event2/listener.h"
-#include "../easylogging++.h"
-#include "../event2/bufferevent.h"
-#include "../event2/buffer.h"
-#include "./device.h"
+#include "event2/bufferevent.h"
+
+#include "event2/listener.h"
+#include "easylogging++.h"
+#include "event2/buffer.h"
+#include "device.h"
 
 
 void listen_accept_cb(struct evconnlistener *lev, evutil_socket_t fd, struct sockaddr *addr, int socklen, void *arg);

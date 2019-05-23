@@ -1,0 +1,1 @@
+g++ -o tps_server *.cpp -I /home/fengjunpu/Github/TCPTrans/include/ -L ~/Github/dss_access_v2/hiredis/lib/  -L ~/Github/dss_access_v2/libevent/lib/ -L ../lib/json_lib/ -ljson -lhiredis -levent_core  -lpthread -lrt --std=c++11

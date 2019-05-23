@@ -1,4 +1,4 @@
-#include "../include/application/device.h"
+#include "application/device.h"
 
 int Peer::handle_register(struct bufferevent *bufev,Peer *pNode,char *msg)
 {
@@ -83,24 +83,21 @@ int Peer::handle_transmsg(struct bufferevent *bufev,Peer *pNode,char *msg)
 	}
 	
 	Peer *des_pNode = get_one_peer(dest_uuid);
-	if(NULL == des_pNode || NULL == des_pNode->p_bufev)
+	if(NULL == des_pNode || NULL == des_pNode->p_bufev) {
 		return HTTP_RES_NOTFOUND;
-
+	}
+	
 	Peer *src_pNode = get_one_peer(source_uuid);
-	if((src_pNode == NULL) || (src_pNode != NULL && src_pNode->p_bufev != bufev))
-	{
+	if((src_pNode == NULL) || (src_pNode != NULL && src_pNode->p_bufev != bufev)) {
 		pNode->uuid = source_uuid;
 		pNode->rfulsh_time = -1;
 		insert_one_peer(source_uuid,pNode);
-	}
-	else if(des_pNode->p_bufev == src_pNode->p_bufev)
-	{
+	} else if(des_pNode->p_bufev == src_pNode->p_bufev) {
 		return HTTP_RES_BADREQ;
 	}
 	
 	error_rps_data(bufev,HTTP_RES_200);
-	
-	bufferevent_write_buffer(des_pNode->p_bufev,bufev->input);
+	bufferevent_write_buffer(des_pNode->p_bufev, bufev->input);
 	
 	return HTTP_RES_200;
 }

@@ -1,7 +1,7 @@
 #include <unistd.h>
-#include "../include/application/easylogging++.h"
-#include "../include/application/server.h"
-#include "../include/application/subsvr_manage.h"
+#include "application/easylogging++.h"
+#include "application/server.h"
+#include "application/subsvr_manage.h"
 
 INITIALIZE_EASYLOGGINGPP
 
@@ -70,10 +70,8 @@ int main(int argc,char ** argv)
 	el::Configurations conf("./logger.conf");
     el::Loggers::reconfigureAllLoggers(conf);
 	parse_args(argc,argv);
-#if 1
 	int Ret = start_subsvr_manage();
 	assert(Ret == 0);
-#endif
 	Server *m_button = Server::GetInstance();
 	assert(m_button);
 	m_button->Start();

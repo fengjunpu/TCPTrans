@@ -1,4 +1,4 @@
-#include "../include/application/commontools.h"
+#include "application/commontools.h"
 
 int get_recv_buflen(int fd)
 {
@@ -23,7 +23,7 @@ int error_rps_data(struct bufferevent *bufev,int code)
 	char rps[128] = {0};
 	int ret = snprintf(rps,128,"HTTP/1.1 %d %s\r\n",code,status_code_to_str(code));
 	sprintf(rps+ret,"%s","Content-Type: text/plain\r\n\r\n");
-	int len = strlen(rps) + 1;
+	int len = strlen(rps);
 	bufferevent_write(bufev,rps,len);
 	return 0;
 }
